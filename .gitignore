@@ -1,0 +1,36 @@
+# Ignorar arquivos de build do Arduino
+*.hex
+*.elf
+
+# Ignorar bibliotecas e pastas temporárias do Arduino
+libraries/
+*.cpp.o
+*.bin
+*.eep
+*.map
+
+# Ignorar arquivos de build do Go
+/build/
+*.exe
+*.out
+
+# Ignorar dependências e outros arquivos de configuração do Go
+/go.sum
+/go.mod
+
+# Ignorar configurações do editor
+.vscode/
+.idea/
+*.sublime*
+
+# Ignorar arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar arquivos de log
+*.log
+
+# Ignorar arquivos binários
+*.o
+*.a
+*.so
