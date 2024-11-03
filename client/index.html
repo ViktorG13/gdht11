@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dados do Arduino via WebRTC</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f4;
+      }
+      #data {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        height: 400px;
+        overflow-y: scroll;
+      }
+      button {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dados do Arduino</h1>
+    <pre id="data"></pre>
+    <button id="requestButton">Solicitar Dados</button>
+
+    <script>
+      const socket = new WebSocket("ws://127.0.0.1:8080/ws");
+      const dataDisplay = document.getElementById("data");
+      const requestButton = document.getElementById("requestButton");
+
+      socket.onopen = function (event) {
+        console.log("Conexão WebSocket estabelecida");
+        socket.send("requestData"); // Solicita dados do Arduino
+      };
+
+      socket.onclose = function (event) {
+        console.log("Conexão WebSocket fechada: ", event);
+      };
+
+      socket.onmessage = function (event) {
+        dataDisplay.textContent += event.data + "\n";
+      };
+
+      socket.onerror = function (error) {
+        console.error("WebSocket error:", error);
+      };
+
+      requestButton.addEventListener("click", () => {
+        socket.send("requestData"); // Envia a solicitação de dados ao servidor
+      });
+    </script>
+  </body>
+</html>
